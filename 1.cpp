@@ -1,45 +1,73 @@
-//Question 1
+/******************************************************************************
 
-#include <iostream>
-#include <cstdlib> 
+Welcome to GDB Online.
+GDB online is an online compiler and debugger tool for C, C++, Python, PHP, Ruby,
+C#, VB, Perl, Swift, Prolog, Javascript, Pascal, HTML, CSS, JS
+Code, Compile, Run and Debug online from anywhere in world.
+
+*******************************************************************************/
+#include<stdio.h>
+#include<iostream>
+#include<string>
+#include<iomanip>
+#include<cmath>
 using namespace std;
-int n, x,count=0, queenie[2];
+
+double sigmoid(double x)
+{
+    return 1/(1+pow(2.72,x*-1));
+}
+double tanH(double num)
+{
+    return 2*sigmoid(2*num)-1;
+}
+double ComputeH(double x, double h)
+{
+    return tanH(0.5*x - 2*h);
+}
+double ComputeO(double x, double h)
+{
+    return sigmoid(0.1*x + 1.5*h);
+}
+void PrintSeqs(double xO[], int n)
+{
+    for (int c=0; c<n;c++)
+    {
+        cout<<setprecision(10);
+        cout<<xO[c]<<" ";
+    }
+}
 
 int main()
 {
-    cin>>queenie[0]>>queenie[1];
+    int n;
+    double x,h;
+    double xO[n];
+    //loop : times the number of nodes
     cin>>n;
-    int puppies[n][2];
-    //input location of puppies
-	for (x=0; x<n; x++)
+    cin>>h;
+    for (int c=0; c<n; c++)
     {
-        cin>>puppies[x][0]>>puppies[x][1];
+        cin>>x;
+        double x1=ComputeO(x,h);
+        double h1=ComputeH(x,h);
+        h=h1;
+        cout<<fixed;
+        cout<<setprecision(10);
+        cout<<h<<" ";
+        xO[c]=x1;
     }
-	//checking distance and output
-    for (x=0; x<n; x++)
+    //PrintSeqs(xO, n);
+    cout<<endl;
+    for (int c=0; c<n;c++)
     {
-        if ((abs(queenie[0]-puppies[x][0])+abs(queenie[1]-puppies[x][1]))>10)
-        {
-            if (count==0)
-            {
-                cout<<"Puppy "<<x+1;
-            }
-            else
-            {
-                cout<<" and Puppy "<<x+1;
-            }
-            count+=1;
-        }
+        cout<<fixed;
+        cout<<setprecision(10);
+        cout<<xO[c]<<" ";
     }
-    if (count>0)
-    {
-        cout<<" too far away"<<endl<<"Total "<<count<<" puppies too far away"<<endl;    
-    }
-    else
-    {
-        cout<<"No puppies too far away"<<endl;
-    }
-    
-    
     return 0;
 }
+
+
+
+
